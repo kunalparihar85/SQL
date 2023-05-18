@@ -1,0 +1,47 @@
+1- write a query to find sub-categories where average profit is more than the half of the max profit in that sub-category
+
+select sub_category
+from orders
+group by sub_category
+having avg(profit) > max(profit)/2
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+2- create the exams table with below script;
+create table exams (student_id int, subject varchar(20), marks int);
+
+insert into exams values (1,'Chemistry',91),(1,'Physics',91),(1,'Maths',92)
+,(2,'Chemistry',80),(2,'Physics',90)
+,(3,'Chemistry',80),(3,'Maths',80)
+,(4,'Chemistry',71),(4,'Physics',54)
+,(5,'Chemistry',79);
+
+write a query to find students who have got same marks in Physics and Chemistry.
+
+select student_id , marks
+from exams
+where subject in ('Physics','Chemistry')
+group by student_id , marks
+having count(1)=2
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+3- write a query to find total number of unique products in each category.
+
+select category,count(distinct product_id) from orders group by category
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+4- write a query to find region with maximum no of unique cities
+
+select top 1 region,count(distinct city) as no_of_cities from orders group by region order by no_of_cities desc
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+5- write a query to find sub categories for which there are more than 100 unique orders placed in the year 2021
+
+select sub_category , count(distinct order_id) as cnt
+from orders
+where order_date between '2021-01-01' and '2021-12-31'
+group by sub_category
+having count(distinct order_id)>100
